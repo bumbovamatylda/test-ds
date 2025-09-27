@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Výsledek kvízu</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Tvůj výsledek</h1>
+  <p id="result"></p>
+  <a href="index.html">Zpět na kvíz</a>
+
+  <script>
+    const result = localStorage.getItem("quizScore");
+    document.getElementById("result").innerText = "Dosáhl/a jsi: " + result;
+  </script>
+</body>
+</html>
