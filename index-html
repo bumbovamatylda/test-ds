@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Kvíz</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .question { margin-bottom: 20px; }
+    button { padding: 10px 20px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Kvíz</h1>
+  <form id="quizForm"></form>
+  <button type="button" onclick="submitQuiz()">Odeslat</button>
+
+  <script>
+    const questions = [
+      {
+        question: "Kdo byl 1.ruským carem?",
+        answers: {
+          a: "Petr I. Veliký",
+          b: "Ivan III.",
+          c: "Alexandr II.",
+          d: "Ivan IV. hrozný"
+        },
+        correct: "d"
+      },
+      {
+        question: "Co je Ruská pravda",
+        answers: {
+          a: "Noviny",
+          b: "První ruský zákoník",
+          c: "Ústava",
+          d: "Životopis Jaroslava Moudrého""
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdy a kým bylo přijato křesťanství v Kyjevské Rusi?",
+        answers: {
+          a: "Petr I. Veliký v roce 1700",
+          b: "Stalin v roce 1930",
+          c: "Alexandr I. v roce 1812",
+          d: "Vladimír I. v roce 988"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaké změny zavedl Petr pro ruskou šlechtu?",
+        answers: {
+          a: "Daň z vousů",
+          b: "Zrušil tituly",
+          c: "Zavedl islám",
+          d: "Zavedl nevolnictví"
+        },
+        correct: "a"
+      },
+      {
+        question: "Jaké byly cíle Petra Velikého ve vnitřní a zahraniční politice?",
+        answers: {
+          a: "Izolace Ruska",
+          b: "Oslabení vědy",
+          c: "Modernizace Ruska",
+          d: "Zrušení armády"
+        },
+        correct: "c"
+      },
+      {
+        question: "Jaký byl výsledek bitvy u Grunwaldu v roce 1410?",
+        answers: {
+          a: "Vítězství Řádu německých rytířů",
+          b: "Prohráli Prusové",
+          c: "Zničení Polska",
+          d: "Vítězství Mongolů"
+        },
+        correct: "b"
+      },
+      {
+        question: "Jaký rod vládl v Rusku po Rurikovcích?",
+        answers: {
+          a: "Romanovci",
+          b: "Alexandrovci",
+          c: "Ivanovci",
+          d: "Vladimírovci"
+        },
+        correct: "a"
+      },
+      {
+        question: "Kdy došlo ke sjednocení Německa?",
+        answers: {
+          a: "1812",
+          b: "1547",
+          c: "1871",
+          d: "1945"
+        },
+        correct: "c"
+      },
+      {
+        question: "Proč bylo Prusko považováno za vyspělý stát",
+        answers: {
+          a: "Kvůli rolnictví",
+          b: "Kvůli náboženství",
+          c: "Kvůli armádě",
+          d: "Kvůli ekonomice"
+        },
+        correct: "c"
+      },
+      {
+        question: "Jak souvisí Přemysl Otakar II. s Pruskem?",
+        answers: {
+          a: "Vedl tam křížovou výpravu",
+          b: "Vládce Mongolů",
+          c: "Byl papežem",
+          d: "Byl pruský král"
+        },
+        correct: "a"
+      },
+      {
+        question: "Kdo byli Hohenzollernové?",
+        answers: {
+          a: "Ruská dynastie",
+          b: "Panovnický rod z Braniborska",
+          c: "Vikingové",
+          d: "Řádoví rytíři"
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdo byl v čele Řádu německých rytířů?",
+        answers: {
+          a: "Car",
+          b: "Papež",
+          c: "Ministr",
+          d: "Velmistr"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaká byla situace v Rusku před Petrovou vládou?",
+        answers: {
+          a: "Rusko bylo zaostalé",
+          b: "Rusko bylo prosperující zemí",
+          c: "Rusko bylo bohaté",
+          d: "Rusko bylo moderní"
+        },
+        correct: "a"
+      },
+      {
+        question: "Petr I. Veliký vládl na přelomu:",
+        answers: {
+          a: "16.-17.století",
+          b: "14.-15.století",
+          c: "18.-19.století",
+          d: "17.-18.století"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaký byl Petr Veliký?",
+        answers: {
+          a: "nerozhodný",
+          b: "krutý",
+          c: "hloupý",
+          d: "líný"
+        },
+        correct: "b"
+      },
+      {
+        question: "Jak se jmenovala sestra Petra Velikého?",
+        answers: {
+          a: "Sofie",
+          b: "Sandra",
+          c: "Sylvie",
+          d: "Kateřina"
+        },
+        correct: "a"
+      },
+      {
+        question: "Kam získal Petr Veliký přístup?",
+        answers: {
+          a: "k baltskému moři",
+          b: "k atlantskému moři",
+          c: "k norskému moři",
+          d: "k severnímu moři"
+        },
+        correct: "a"
+      },
+      {
+        question: "?",
+        answers: {
+          a: "Petr I. Veliký",
+          b: "Ivan III.",
+          c: "Alexandr II.",
+          d: "Ivan IV. hrozný"
+        },
+        correct: "d"
+      },
+      {
+        question: "Čeho bylo Rusko součástí při nadvládě Mongolů?",
+        answers: {
+          a: "Zlatá horda",
+          b: "Střbrná horda",
+          c: "Čingischánův spolek",
+          d: "Tatarská horda"
+        },
+        correct: "a"
+      },
+      {
+        question: "Co se stalo roku 1223?",
+        answers: {
+          a: "bitva na řece Donu",
+          b: "bitva na řece Kalce",
+          c: "založení Petroradu",
+          d: "bitva u Grunwaldu"
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdy byli poraženi Mongolové?",
+        answers: {
+          a: "1470",
+          b: "1687",
+          c: "988",
+          d: "1380"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaký byl jiný název pro Mongoly?",
+        answers: {
+          a: "Rurikovci",
+          b: "Tataři",
+          c: "Avaři",
+          d: "Vandalové"
+        },
+        correct: "b"
+      },
+      {
+        question: "Čingischán byl?",
+        answers: {
+          a: "významný čínský císař",
+          b: "zakladatel a vládce Mongolské říše",
+          c: "slavný mongolský letopisec",
+          d: "středověký perský básník"
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdy a jaký český kníže porazil Mongoly",
+        answers: {
+          a: "1156 Václav IV.",
+          b: "1478 Karel III.",
+          c: "1007 Bohuslav I.",
+          d: "1241 Václav I."
+        },
+        correct: "d"
+      },
+      {
+        question: "V čele pravoslavné církve je:",
+        answers: {
+          a: "papež",
+          b: "biskup",
+          c: "monarcha",
+          d: "patriarcha"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaký význam měla bitva u Grunwaldu v roce 1410??",
+        answers: {
+          a: "Bitva vedla ke sjednocení Německa",
+          b: "Vítězství Mongolů nad Rusy",
+          c: "Porážka Řádu německých rytířů polsko-litevskou unií",
+          d: "Porážka Marie Terezie Prusy"
+        },
+        correct: "c"
+      },
+      {
+        question: "Kdo je považován za zakladatele Kyjevské Rusi?",
+        answers: {
+          a: "Jaroslav Moudrý",
+          b: "Oleg Rurik",
+          c: "Vladimír I.",
+          d: "Ivan III."
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdy a kým bylo přijato křesťanství v Kyjevské Rusi?",
+        answers: {
+          a: "Rurik v roce 882",
+          b: "Jaroslav Moudrý v roce 1037",
+          c: "Vladimír I. v roce 988",
+          d: "Ivan IV. v roce 1547"
+        },
+        correct: "c"
+      },
+      {
+        question: "Jaký význam měl Jaroslav Moudrý pro Kyjevskou Rus?",
+        answers: {
+          a: "Zavedl křesťanství",
+          b: "Sepsal Ruskou pravdu",
+          c: "Založil Petrohrad",
+          d: "Porazil Mongoly"
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdo porazil Rusy v bitvě na řece Kalce?",
+        answers: {
+          a: "Prusko",
+          b: "Mongolové",
+          c: "Varjagové",
+          d: "Václav IV."
+        },
+        correct: "b"
+      },
+      {
+        question: "Kdo založil Petrohrad?",
+        answers: {
+          a: "Kateřina Veliká",
+          b: "Čingischán",
+          c: "Ivan IV. hrozný",
+          d: "Petr I. Veliký"
+        },
+        correct: "d"
+      },
+      {
+        question: "Jaká reforma není provedena Petrem I.",
+        answers: {
+          a: "reforma písma",
+          b: "daňová reforma",
+          c: "zrušení nevolnictví",
+          d: "industriální reforma"
+        },
+        correct: "c"
+      },
+      {
+        question: "Kdo vydal Ruskou pravdu?",
+        answers: {
+          a: "Jaroslav Moudrý",
+          b: "Nestor",
+          c: "Rurik",
+          d: "Ivan III."
+        },
+        correct: "a"
+      }
+    ];
+
+    const form = document.getElementById("quizForm");
+    questions.forEach((q, index) => {
+      const div = document.createElement("div");
+      div.classList.add("question");
+      div.innerHTML = `
+        <p>${index + 1}. ${q.question}</p>
+        ${Object.entries(q.answers).map(([key, val]) => `
+          <label>
+            <input type="radio" name="q${index}" value="${key}">
+            ${key.toUpperCase()}: ${val}
+          </label><br>
+        `).join("")}
+      `;
+      form.appendChild(div);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && selected.value === q.correct) {
+          score++;
+        }
+      });
+      localStorage.setItem("quizScore", score + "/" + questions.length);
+      window.location.href = "result.html";
+    }
+  </script>
+</body>
+</html>
